@@ -2,7 +2,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: traefik-deployment
+  name: traefik-ingress-controller
   namespace: traefik
   labels:
     app: traefik
@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app: traefik
+        name: traefik
     spec:
       serviceAccountName: traefik-account
       containers:
@@ -24,6 +25,7 @@ spec:
           args:
             - --api.insecure
             - --providers.kubernetesingress
+            - --logLevel=INFO
           ports:
             - name: web
               containerPort: 80
@@ -39,7 +41,7 @@ metadata:
 spec:
   selector:
     app: traefik
-  type: LoadBalancer
+  type: NodePort
   ports:
     - protocol: TCP
       name: web
@@ -47,5 +49,3 @@ spec:
     - protocol: TCP
       name: dashboard
       port: 8080
-  externalIPs:
-    - 192.168.125.158
