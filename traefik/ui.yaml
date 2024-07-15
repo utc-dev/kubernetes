@@ -13,7 +13,7 @@ spec:
     targetPort: 8080
 ---
 apiVersion: networking.k8s.io/v1
-kind: Ingress
+kind: IngressRoute
 metadata:
   name: traefik-web-ui
   namespace: traefik
