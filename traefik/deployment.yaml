@@ -49,6 +49,8 @@ spec:
   type: NodePort
   selector:
     app: traefik
+  externalIPs:
+    - 192.168.125.158
   ports:
     - protocol: TCP
       name: http
