@@ -58,6 +58,3 @@ spec:
     - protocol: TCP
       name: https
       port: 443
-    - protocol: TCP
-      name: dashboard
-      port: 8080
