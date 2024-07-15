@@ -1,15 +1,18 @@
 {
     "cSpell.words": [
+        "accesslog",
         "ingressclasses",
         "ingressroutes",
         "ingressroutetcps",
         "ingressrouteudps",
+        "kubernetescrd",
         "middlewaretcps",
         "serverstransports",
         "serverstransporttcps",
         "tlsoptions",
         "tlsstores",
         "traefik",
-        "traefikservices"
+        "traefikservices",
+        "websecure"
     ]
 }
