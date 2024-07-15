@@ -12,17 +12,17 @@ spec:
     port: 80
     targetPort: 8080
 ---
-apiVersion: apps/v1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: traefik-web-ui
   namespace: traefik
 spec:
   rules:
-    - host: l158.utc.edu.vn
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: traefik-web-ui
-              servicePort: web
+  - host: l158.utc.edu.vn
+    http:
+      paths:
+      - path: /
+        backend:
+        serviceName: traefik-web-ui
+        servicePort: web

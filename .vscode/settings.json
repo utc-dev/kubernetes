@@ -1,5 +1,15 @@
 {
     "cSpell.words": [
-        "traefik"
+        "ingressclasses",
+        "ingressroutes",
+        "ingressroutetcps",
+        "ingressrouteudps",
+        "middlewaretcps",
+        "serverstransports",
+        "serverstransporttcps",
+        "tlsoptions",
+        "tlsstores",
+        "traefik",
+        "traefikservices"
     ]
 }
