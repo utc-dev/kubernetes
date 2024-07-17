@@ -1,0 +1,120 @@
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: blearning-storage
+# spec:
+#   storageClassName: "blearning-secondary"
+#   capacity:
+#     storage: 10Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   hostPath:
+#     path: "/mnt/blearning-data"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: blearning
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blearning
+  namespace: blearning
+  labels:
+    app: blearning
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blearning
+  template:
+    metadata:
+      name: blearning
+      labels:
+        app: blearning
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: blearning
+          image: dockerhub.utc.edu.vn/moodle:1.5
+          ports:
+            - name: web
+              containerPort: 8080
+            - name: websecure
+              containerPort: 8443
+          env:
+            - name: MOODLE_USERNAME
+              value: admin
+            - name: MOODLE_PASSWORD
+              value: CITA@2024;
+            - name: MOODLE_SITE_NAME
+              value: Hệ thống quản trị học tập Blended learning
+            - name: MOODLE_LANG
+              value: vi
+            - name: MOODLE_DATABASE_TYPE
+              value: mariadb
+            - name: MOODLE_DATABASE_HOST
+              value: mariadb-cluster-primary.default.svc.cluster.local
+            - name: MOODLE_DATABASE_PORT_NUMBER
+              value: "3306"
+            - name: MOODLE_DATABASE_NAME
+              value: blearning_prod_2024
+            - name: MOODLE_DATABASE_USER
+              value: root
+            - name: MOODLE_DATABASE_PASSWORD
+              value: CITA@2024
+            - name: MOODLE_SMTP_PROTOCOL
+              value:
+            - name: MOODLE_SMTP_HOST
+              value:
+            - name: MOODLE_SMTP_PORT
+              value:
+            - name: MOODLE_SMTP_USER
+              value:
+            - name: MOODLE_SMTP_PASSWORD
+              value:
+            - name: BITNAMI_DEBUG
+              value: "true"
+          volumeMounts:
+            - name: blearning-www
+              mountPath: /bitnami/moodle
+      volumes:
+        - name: blearning-www
+          hostPath:
+            path: "/mnt/blearning-data"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blearning-service
+  namespace: blearning
+spec:
+  selector:
+    app: blearning
+  ports:
+    - name: web
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blearning-ingress
+  namespace: blearning
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  rules:
+    - host: blearning.utc.edu.vn
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blearning-service
+                port:
+                  name: web
