@@ -24,3 +24,81 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/mnt/cita-secondary-data"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cita-storage-secondary-1
+spec:
+  storageClassName: "cita-storage-secondary"
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/cita-secondary-data"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cita-storage-0
+spec:
+  storageClassName: "cita-storage"
+  capacity:
+    storage: 32Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/cita-storage"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cita-storage-1
+spec:
+  storageClassName: "cita-storage"
+  capacity:
+    storage: 32Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/cita-storage"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgresql-storage-0
+spec:
+  storageClassName: "postgresql-storage"
+  capacity:
+    storage: 32Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/postgresql-storage"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgresql-storage-1
+spec:
+  storageClassName: "postgresql-storage"
+  capacity:
+    storage: 32Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/postgresql-storage"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgresql-storage-2
+spec:
+  storageClassName: "postgresql-storage"
+  capacity:
+    storage: 32Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/postgresql-storage"

@@ -1,0 +1,14 @@
+postgresql:
+  replicaCount: 2
+  password: CITA@2024;
+  repmgrPassword: CITA@2024;
+  usePgRewind: false
+pgpool:
+  replicaCount: 1
+  adminPassword: CITA@2024;
+persistence:
+  storageClass: "postgresql-storage"
+service:
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.125.158
