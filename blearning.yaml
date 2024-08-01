@@ -25,7 +25,7 @@ metadata:
   labels:
     app: blearning
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: blearning
@@ -54,17 +54,17 @@ spec:
             - name: MOODLE_LANG
               value: vi
             - name: MOODLE_DATABASE_TYPE
-              value: mariadb
+              value: pgsql
             - name: MOODLE_DATABASE_HOST
-              value: mariadb-cluster-primary.default.svc.cluster.local
+              value: postgresql-postgresql-ha-pgpool.default.svc.cluster.local
             - name: MOODLE_DATABASE_PORT_NUMBER
-              value: "3306"
+              value: "5432"
             - name: MOODLE_DATABASE_NAME
               value: blearning_prod_2024
             - name: MOODLE_DATABASE_USER
-              value: root
+              value: postgres
             - name: MOODLE_DATABASE_PASSWORD
-              value: CITA@2024
+              value: CITA@2024;
             - name: MOODLE_SMTP_PROTOCOL
               value:
             - name: MOODLE_SMTP_HOST
@@ -93,6 +93,7 @@ metadata:
 spec:
   selector:
     app: blearning
+  type: LoadBalancer
   ports:
     - name: web
       protocol: TCP
@@ -108,7 +109,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
-    - host: blearning.utc.edu.vn
+    - host: lms.utc.edu.vn
       http:
         paths:
           - path: /
