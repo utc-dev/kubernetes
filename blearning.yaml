@@ -80,10 +80,15 @@ spec:
           volumeMounts:
             - name: blearning-www
               mountPath: /bitnami/moodle
+            - name: blearning-data
+              mountPath: /bitnami/moodledata
       volumes:
         - name: blearning-www
           hostPath:
-            path: "/mnt/blearning-data"
+            path: "/mnt/blearning-www"
+        - name: blearning-data
+          hostPath:
+            path: "/mnt/blearning-files"
 ---
 apiVersion: v1
 kind: Service
